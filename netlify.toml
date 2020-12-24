@@ -1,4 +1,6 @@
-publish = ".next/"
-
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[build]
+  functions = "netlify-automatic-functions"
+  command = "rm -rf netlify-automatic-functions dist && yarn build"
