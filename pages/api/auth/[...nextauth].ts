@@ -41,6 +41,9 @@ const options = {
 
     // https://next-auth.js.org/configuration/options#debug
     debug: true,
+
+    secret: process.env.NEXTAUTH_SECRET
+
   }
 }
 
