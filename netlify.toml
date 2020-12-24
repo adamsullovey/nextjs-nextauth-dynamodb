@@ -1,6 +1,12 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[[plugins]]
+  package = "netlify-plugin-cache-nextjs"
+    [plugins.inputs]
+    # Custom build directory if you aren't using `.next` (https://nextjs.org/docs/api-reference/next.config.js/setting-a-custom-build-directory)
+    custom_build_dir_name = "dist"
+
 [build]
   functions = "netlify-automatic-functions"
   command = "sh build.sh"
