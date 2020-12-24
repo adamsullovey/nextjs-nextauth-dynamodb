@@ -7,13 +7,13 @@ rm -rf netlify-automatic-functions dist
 # this will put their values into a .env file with the regular names the AWS SDK expects
 # inspired by https://remysharp.com/2019/05/18/aws-inside-netlify
 cat > ./.env <<EOL
-AWS_REGION=$DB_AWS_REGION
-AWS_ACCESS_KEY_ID=$DB_AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY=$DB_AWS_SECRET_ACCESS_KEY
+OMANYD_AWS_REGION=$DB_AWS_REGION
+OMANYD_AWS_ACCESS_KEY_ID=$DB_AWS_ACCESS_KEY_ID
+OMANYD_AWS_SECRET_ACCESS_KEY=$DB_AWS_SECRET_ACCESS_KEY
 EOL
 
 # is this being generated the way I expect?
-cat .env
+head -1 .env
 
 # finally build the site
 yarn build
