@@ -3,4 +3,4 @@
 
 [build]
   functions = "netlify-automatic-functions"
-  command = "rm -rf netlify-automatic-functions dist && yarn build"
+  command = "sh build.sh"
