@@ -11,4 +11,8 @@ I want to try authenticating a user in NextJS with [NextAuth.js](https://next-au
 
 - [Next Auth with DynamoDB](https://github.com/tgandrews/next-auth-dynamodb) doesn't have docs, but the code is easy enough to read
 
+  - this requires 3 DynamoDB tables (accounts, sessions, users). My other DynamoDB work as all been done in a single table, so this was a small surprise but totally ok
+
 - plan on having a build script like build.sh from the start. I feel like I always add one eventually with Netlify projects
+
+- Twitter requires some sort of approval for creating new applications, but old applications are grandfathered in and can be pointed at new URLs
