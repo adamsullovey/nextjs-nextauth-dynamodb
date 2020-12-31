@@ -14,13 +14,13 @@ yarn
 
 3. Set up 3 DynamoDB tables needed by nextauth-dynamodb:
 
-  * `sessions`
-  * `users`
-  * `accounts`
+   * `sessions`
+   * `users`
+   * `accounts`
   
-  The required indexes are in the [JOI schemas in the source code](https://github.com/tgandrews/next-auth-dynamodb/blob/main/src/index.ts#L17)
+   The required indexes are in the [JOI schemas in the source code](https://github.com/tgandrews/next-auth-dynamodb/blob/main/src/index.ts#L17)
   
-  Creating a new AWS user and IAM role that can only work with those 3 tables and using its credentials in the next step is a great idea too.
+   Creating a new AWS user and IAM role that can only work with those 3 tables and using its credentials in the next step is a great idea too.
 
 3. Copy `.env.example` to a new file called `.env` and fill in the environment variables with your credentials from AWS and Twitter, and other values
 
