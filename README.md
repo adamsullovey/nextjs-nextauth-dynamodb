@@ -10,7 +10,7 @@ I want to try authenticating a user in NextJS with [NextAuth.js](https://next-au
 yarn
 ```
 
-2. Set up a [Twitter app](https://developer.twitter.com/en/apps) for yourself. I don't know all the steps, but I know this app will need the **Callback URL** set to your local server's URL (eg http://localhost:3000/), and Consumer API key and secet API key. Read-only permissions (not read and write) is enough.
+2. Set up a [Twitter app](https://developer.twitter.com/en/apps) for yourself. I don't know all the steps, but I know this app will need the **Callback URL** set to your local server's URL (eg http://localhost:3000/api/auth/callback/twitter), and Consumer API key and secet API key. Read-only permissions (not read and write) is enough.
 
 3. Copy `.env.example` to a new file called `.env` and fill in the environment variables with your credentials from AWS and Twitter, and other values
 
@@ -28,8 +28,7 @@ yarn dev
 yarn netlify build
 ```
 
-2. Set up a Netlify app with the same environment variables that are in your `.env`, but with values set to run at your Netlify app's URL. You can safe some work by setting up a second Twitter app with different credentials for this.
-
+2. Set up a Netlify app with the same environment variables that are in your `.env`, but with values set to run at your Netlify app's URL. Twitter's Callback URL option accepts multiple URLs, remember to add a new URL for your netlify app (eg https://random-words-6232dc.netlify.app/api/auth/callback/twitter)
 3. Assuming you have linked your folder to Netlify deploy with:
 
 ```sh
