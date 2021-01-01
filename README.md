@@ -6,11 +6,11 @@ I want to try authenticating a user in NextJS with [NextAuth.js](https://next-au
 
 1. Install stuff with yarn (npm will probably work too)
 
-```sh
-yarn
-```
+  ```sh
+  yarn
+  ```
 
-2. Set up a [Twitter app](https://developer.twitter.com/en/apps) for yourself. I don't know all the steps, but I know this app will need the **Callback URL** set to your local server's URL (eg http://localhost:3000/api/auth/callback/twitter), and you will need to save your **Consumer API key** and **secet API key**. Read-only permissions (not read and write) is enough.
+2. Set up a [Twitter app](https://developer.twitter.com/en/apps) for yourself. I don't know all the steps, but I know this app will need the **Callback URL** set to your local server's URL (eg http://localhost:3000/api/auth/callback/twitter), and you will to copy your **Consumer API key** and **secet API key** into the app's configuration. Read-only permissions (not read and write) is enough.
 
 3. Set up 3 DynamoDB tables needed by nextauth-dynamodb:
 
@@ -18,46 +18,49 @@ yarn
    * `users`
    * `accounts`
   
-   The required indexes are in the [JOI schemas in the source code](https://github.com/tgandrews/next-auth-dynamodb/blob/main/src/index.ts#L17)
+   The required indexes are in the [Omanyd schemas in the source code](https://github.com/tgandrews/next-auth-dynamodb/blob/main/src/index.ts#L17)
   
-   Creating a new AWS user and IAM role that can only work with those 3 tables and using its credentials in the next step is a great idea too.
+   Creating a new AWS user that only work with those 3 tables is a great idea too.
 
-3. Copy `.env.example` to a new file called `.env` and fill in the environment variables with your credentials from AWS and Twitter, and other values
+3. Copy `.env.example` to a new file called `.env` and fill in the environment variables with your credentials from AWS and Twitter, and other values.
 
-4. Run it locally. Make sure your Twitter app is set up with a callback URL pointed at your dev server
+4. Run it locally with the command
 
-```sh
-yarn dev
-```
+  ```sh
+  yarn dev
+  ```
 
-## How do I deploy it?
+## How do I deploy it to Netlify?
 
-1. Confirm you can build it locally with Netlify's CLI tool
+1. Set up a Netlify app with the same environment variables that are in your `.env`, but with values set to run at your Netlify app's URL. Twitter's Callback URL option accepts multiple URLs, remember to add a new URL for your netlify app (eg https://random-words-6232dc.netlify.app/api/auth/callback/twitter). Link this the folder on your computer to your Netlify site with the Netlify CLI with `yarn netlify link`
 
-```sh
-yarn netlify build
-```
 
-2. Set up a Netlify app with the same environment variables that are in your `.env`, but with values set to run at your Netlify app's URL. Twitter's Callback URL option accepts multiple URLs, remember to add a new URL for your netlify app (eg https://random-words-6232dc.netlify.app/api/auth/callback/twitter)
-3. Assuming you have linked your folder to Netlify deploy with:
+2. Confirm you can build the site locally with Netlify's CLI tool
 
-```sh
-yarn netlify deploy
-```
+  ```sh
+  yarn netlify build
+  ```
+
+
+3. If you can build, try deploying:
+
+  ```sh
+  yarn netlify deploy
+  ```
 
 Netlify has areas to check the logs during deploy and the Netlify Lamda used by NextAuth.js for errors.
 
 ## What did I learn?
 
-- common AWS environment variables like [`AWS_ACCESS_KEY_ID` are reserved variable names](https://community.netlify.com/t/aws-access-key-id-is-a-reserved-environment-variable/18835) in Netlify, so you need to get your AWS credentials into your Lamda function a different way than entering them in the Netlify GUI.
+- common AWS environment variables like [`AWS_ACCESS_KEY_ID` are reserved variable names in Netlify](https://community.netlify.com/t/aws-access-key-id-is-a-reserved-environment-variable/18835), so you need to get your AWS credentials into your Lamda function with different names.
 
-  - luckily this project depends on the DynamoDB wrapper [Omanyd](https://github.com/tgandrews/omanyd#getting-started) which can use variables named `OMANYD_AWS_ACCESS_KEY_ID` for accessing DynamoDB eliminates the conflict
-  - [Remy Sharp demonstrates another work-around here](https://remysharp.com/2019/05/18/aws-inside-netlify) which I am using as well (because why not try everything in an experiment link this)
+  - luckily this project depends on the DynamoDB wrapper [Omanyd](https://github.com/tgandrews/omanyd#getting-started) which can use variables named `OMANYD_AWS_ACCESS_KEY_ID` for accessing DynamoDB, which eliminates the conflict
+  - [Remy Sharp demonstrates another work-around here](https://remysharp.com/2019/05/18/aws-inside-netlify)
 
 - [Next Auth with DynamoDB](https://github.com/tgandrews/next-auth-dynamodb) doesn't have docs, but the code is easy enough to read
 
-  - this requires 3 DynamoDB tables (accounts, sessions, users). My other DynamoDB work as all been done in a single table, so this was a small surprise but totally ok
+  - this requires 3 DynamoDB tables (accounts, sessions, users). My other recent DynamoDB work as all been done in a single table, so this was a small surprise but totally ok
 
-- plan on having a build script like build.sh from the start. I feel like I always add one eventually with Netlify projects
+- plan on having a build script like build.sh for Netlify-hosted projects from the start. I feel like I always add one eventually
 
 - Twitter requires some sort of approval for creating new applications, but old applications are grandfathered in and can be pointed at new URLs
