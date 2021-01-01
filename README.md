@@ -2,6 +2,8 @@
 
 I want to try authenticating a user in NextJS with [NextAuth.js](https://next-auth.js.org/) and storing account info in [DynamoDB](https://aws.amazon.com/dynamodb/) via [next-auth-dynamodb](https://github.com/tgandrews/next-auth-dynamodb)
 
+
+
 ## How do I run it?
 
 1. Install stuff with yarn (npm will probably work too)
@@ -29,6 +31,7 @@ I want to try authenticating a user in NextJS with [NextAuth.js](https://next-au
   ```sh
   yarn dev
   ```
+5. When it is running, http://localhost:3000/ should show a simple webpage with a button to sign-in with Twitter
 
 ## How do I deploy it to Netlify?
 
